@@ -55,10 +55,16 @@ const Login = props => {
     }
   };
 
-  const handelSubmitContainer = e => {
+  const handelSubmitContainer = async e => {
     e.preventDefault();
-    register(regist);
-    props.setLog(true);
+    const response = await register(regist);
+    if(response.result){
+      alert("Your User was created")
+      props.setLog(true);
+    } 
+    else{
+      alert("System error, please try again")
+    }
   };
   return (
     <div className="container">
