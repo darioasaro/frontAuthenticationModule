@@ -1,5 +1,6 @@
 import React,{ useState, useEffect } from 'react';
-import logo from './logo.svg';
+import {connect} from 'react-redux'
+import {setLog,setTokens} from './services/redux/actions/userActions.js'
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -7,29 +8,43 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-
 import Login from './pages/login/login.js'
-import {login} from './services/users.js'
+import Main from './pages/main/main.js'
+import Forgot from './pages/forgot/forgot.js'
+import NavBar from './components/navbar/navbar.js'
+import Secure from './pages/secure/secure.js'
 
 
-const App= ()=> {
+
+
+const App = (props)=> {
   
-  const handleLogin = async (user)=>{
-    const response = await login(user)
-    
-
-  }
 
   return (
   <Router>
+    <NavBar />
+    {props.logged ? <Redirect to ="/main" /> :
+    <Redirect to="/"/> }
     <Switch>
-      <Route exact path = "/">
-        <Login handleLogin = {handleLogin} />
-      </Route>
-
+      <Route exact path = "/"      component={Login}/>
+      <Route exact path ="/main"   component={Main}/>
+      <Route exact path ="/forgot" component={Forgot}/>
+      <Route exact path ="/secure" component={Secure} />
     </Switch>
   </Router>
   );
 }
 
-export default App;
+
+const mapStateToProps = (reducers)=>{
+  return reducers.usuariosReducer
+
+}
+const mapDispachToProps = {
+   setLog,setTokens
+}
+
+export default connect(mapStateToProps,mapDispachToProps)(App)
+
+
+

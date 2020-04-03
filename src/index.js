@@ -1,19 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
-import {createStore} from 'redux'
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import reducer from './reducers'
+import {store} from './services/redux/store/store'
 
-const initialState = {
-  logged:false,
-  username:"",
-  password:""
-}
-const store = createStore(reducer,initialState)
+
 ReactDOM.render(
   // <React.StrictMode>
   //   <App />
